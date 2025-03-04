@@ -63,6 +63,7 @@ Putting it all together, the calculator now has the addition function for two nu
 ``` JS
 let storedNumber = 0;
 let operator = null
+let display.innerText = 0;
 
 calculator.addEventListener('click', (event) => {
     console.log(event.target.innerText);
@@ -86,12 +87,140 @@ calculator.addEventListener('click', (event) => {
 })
 ```
 
-<h2>User Story 3: Subtract two numbers</h2>
+<h2>User Story 3, 4, 5, & 6: Subtract, multiply, divide two numbers & see output</h2>
 
-<h2>User Story 4: Multiply two numbers</h2>
+I already implemented the feature in the above code for the output of a mathematical operation (user story 6) above in the addition section.  Added functions will include for other math operations.
 
-<h2>User Story 5: Divide two numbers</h2>
+After implementation of the previous code for addition, I utilized the same framework and made additional versions for subtraction, division, and multiplication with the respective logic built out for equals:
 
-<h2>User Story 6: I want to be able to see the output of the mathematical operation</h2>
+``` JS
+calculator.addEventListener('click', (event) => {
+    console.log(event.target.innerText);
+    if (event.target.classList.contains('number')) {
+
+        display.innerText = display.innerText + event.target.innerText
+    }
+    if (event.target.innerText === '+') {
+        storedNumber = display.innerText;
+        operator = '+';
+        display.innerText = 0;
+    }
+    if (event.target.innerText === '-') {
+        storedNumber = display.innerText;
+        operator = '-';
+        display.innerText = 0;
+    }
+    if (event.target.innerText === '*') {
+        storedNumber = display.innerText;
+        operator = '*';
+        display.innerText = 0;
+    }
+    if (event.target.innerText === '/') {
+        storedNumber = display.innerText;
+        operator = '/';
+        display.innerText = 0;
+    }
+    if (event.target.innerText === '=') {
+        if (operator === '+') {
+            display.innerText = storedNumber*1 + display.innerText*1;
+        }
+        if (operator === '-') {
+            display.innerText = storedNumber*1 - display.innerText*1;
+        }
+        if (operator === '*') {
+            display.innerText = storedNumber*1 * display.innerText*1;
+        }
+        if (operator === '/') {
+            display.innerText = storedNumber*1 / display.innerText*1;
+        }
+    }
+});
+```
+
+*One interesting thing to note is that if the '=' sign is pressed after doing* '+' *or* '*', *the event will retrigger the stored value with the right operation successfully (**cool!**)*
+
+*The same logic does not unfortunately work with the* '-' *or* '/' *call*
+
 
 <h2>User Story 7: I want to be able to clear all operations and start from 0.</h2>
+
+Created one final search event for the 'C' button on the calculator.  This button sets all the values back to null, clearing the operations, stored values in variables, and the display back to empty.
+
+``` JS
+calculator.addEventListener('click', (event) => {
+    if (event.target.innerText === 'C') {
+        storedNumber = null;
+        display.innerText = null;
+        operator = null;
+    }
+})
+```
+
+However, upon reading the requirement that the user wants to start from 0 and seeing the live example, I realized that I needed to make a couple more changes.
+
+I updated the logic for all values that reset the display to '0' and created an 'if' construction if the initial display was '0' to just replace '0' or not add anything more if it were already '0'.
+
+What the fix looked like is:
+
+``` JS
+display.innerText = 0
+
+calculator.addEventListener('click', (event) => {
+    if (event.target.classList.contains('number')) {
+        if (display.innerText === '0') {
+            display.innerText = display.innerText*1 + event.target.innerText*1
+        } else display.innerText = display.innerText + event.target.innerText
+    }
+    if (event.target.innerText === '+') {
+        storedNumber = display.innerText;
+        operator = '+';
+        display.innerText = 0;
+    }
+    if (event.target.innerText === '-') {
+        storedNumber = display.innerText;
+        operator = '-';
+        display.innerText = 0;
+    }
+    if (event.target.innerText === '*') {
+        storedNumber = display.innerText;
+        operator = '*';
+        display.innerText = 0;
+    }
+    if (event.target.innerText === '/') {
+        storedNumber = display.innerText;
+        operator = '/';
+        display.innerText = 0;
+    }
+    if (event.target.innerText === '=') {
+        if (operator === '+') {
+            display.innerText = storedNumber*1 + display.innerText*1;
+        }
+        if (operator === '-') {
+            display.innerText = storedNumber*1 - display.innerText*1;
+        }
+        if (operator === '*') {
+            display.innerText = storedNumber*1 * display.innerText*1;
+        }
+        if (operator === '/') {
+            display.innerText = storedNumber*1 / display.innerText*1;
+        }
+    }
+    if (event.target.innerText === 'C') {
+        storedNumber = null;
+        display.innerText = 0;
+        operator = null;
+    }
+})
+```
+
+And that's the completion of the lab!
+
+---
+
+<h3>Post-Script</h3>
+
+Seeing where this is, there are a few updates/level-ups I'd be interested to pursue to improve on this:
+
+* How to make hitting equals while the '/' or '-' operations are stored to have it keep calculating vs. swapping between the output and the stored value.
+* Updating the operations so they can continue the operation calculation if another operator button is pressed before the equals sign.
+* Cleaning up the code by making certain functions that seem related (i.e. operators) as a single function that can be referred vs typing out the whole code out again.
