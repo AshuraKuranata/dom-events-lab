@@ -5,8 +5,9 @@ const display = document.querySelector('.display')
 
 /*-------------------------------- Variables --------------------------------*/
 let storedNumber = 0;
+let secondValue = 0;
 let operator = null;
-display.innerText = 0
+display.innerText = 0;
 
 /*------------------------ Cached Element References ------------------------*/
 
@@ -38,24 +39,52 @@ calculator.addEventListener('click', (event) => {
             operator = '/';
         }
         if (event.target.innerText === 'C') {
-            storedNumber = null;
+            storedNumber = 0;
+            secondValue = 0;
             operator = null;
-            display.innerText = 0;
         }
-        display.innerText = 0;
+        display.innerText = '0';
     }
     if (event.target.innerText === '=') {
-        if (operator === '+') {
-            display.innerText = storedNumber*1 + display.innerText*1;
-        }
-        if (operator === '-') {
-            display.innerText = storedNumber*1 - display.innerText*1;
-        }
-        if (operator === '*') {
-            display.innerText = storedNumber*1 * display.innerText*1;
-        }
-        if (operator === '/') {
-            display.innerText = storedNumber*1 / display.innerText*1;
+        if (secondValue === 0) {
+            secondValue = display.innerText;
+            if (operator === '+') {
+                display.innerText = storedNumber*1 + secondValue*1;
+                storedNumber = display.innerText;
+            }
+            if (operator === '-') {
+                display.innerText = storedNumber*1 - secondValue*1;
+                storedNumber = display.innerText;
+            }
+            if (operator === '*') {
+                display.innerText = storedNumber*1 * secondValue*1;
+                storedNumber = display.innerText;
+            }
+            if (operator === '/') {
+                if (secondValue === '0') {
+                    display.innerText = 'ERROR'
+                } else{
+                display.innerText = storedNumber*1 / secondValue*1;
+                storedNumber = display.innerText;
+                }
+            }
+        } else if (secondValue !== 0) {
+            if (operator === '+') {
+                display.innerText = storedNumber*1 + secondValue*1;
+                storedNumber = display.innerText
+            }
+            if (operator === '-') {
+                display.innerText = storedNumber*1 - secondValue*1;
+                storedNumber = display.innerText
+            }
+            if (operator === '*') {
+                display.innerText = storedNumber*1 * secondValue*1;
+                storedNumber = display.innerText
+            }
+            if (operator === '/') {
+                display.innerText = storedNumber*1 / secondValue*1;
+                storedNumber = display.innerText
+            }
         }
     }
 })
