@@ -28,15 +28,19 @@ calculator.addEventListener('click', (event) => {
         storedNumber = display.innerText;
         if (event.target.innerText === '+') {
             operator = '+';
+            secondValue = 0;
         }
         if (event.target.innerText === '-') {
             operator = '-';
+            secondValue = 0;
         }
         if (event.target.innerText === '*') {
             operator = '*';
+            secondValue = 0;
         }
         if (event.target.innerText === '/') {
             operator = '/';
+            secondValue = 0;
         }
         if (event.target.innerText === 'C') {
             storedNumber = 0;

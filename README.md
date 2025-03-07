@@ -217,10 +217,17 @@ And that's the completion of the lab!
 
 ---
 
+## Post Launch update
+3/7/2025
+* Implemented new calculator functionality that allows a user to continue calculating an output with the stored value when pressing equals continuously.
+* Adjusted logic for operator function so it will not improperly store wrong value
+* Added error to calculator when dividing by 0 (previously returned infinity)
+
 <h3>Post-Script</h3>
 
 Seeing where this is, there are a few updates/level-ups I'd be interested to pursue to improve on this:
 
-* How to make hitting equals while the '/' or '-' operations are stored to have it keep calculating vs. swapping between the output and the stored value.
-* Updating the operations so they can continue the operation calculation if another operator button is pressed before the equals sign.
-* Cleaning up the code by making certain functions that seem related (i.e. operators) as a single function that can be referred vs typing out the whole code out again.
+**EDIT** COMPLETED ENHANCEMENTS ON 3/7/25
+* ~~How to make hitting equals while the '/' or '-' operations are stored to have it keep calculating vs. swapping between the output and the stored value.~~
+* ~~Updating the operations so they can continue the operation calculation if another operator button is pressed before the equals sign.~~
+* ~~Cleaning up the code by making certain functions that seem related (i.e. operators) as a single function that can be referred vs typing out the whole code out again.~~
